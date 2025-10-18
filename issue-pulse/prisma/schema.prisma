@@ -11,8 +11,11 @@ datasource db {
 model User {
   id               Int           @id @default(autoincrement())
   name             String
-  email            String
+  email            String        @unique
   profilePicture   String
+  githubId         String        @unique
+  username         String
+  githubUrl        String
   favoriteProjects UserProject[]
   createdAt        DateTime      @default(now())
   updatedAt        DateTime      @updatedAt
@@ -20,7 +23,7 @@ model User {
 
 model Project {
   id          Int           @id @default(autoincrement())
-  url         String
+  url         String        @unique
   description String?
   issues      Issues[]
   favoritedBy UserProject[]
