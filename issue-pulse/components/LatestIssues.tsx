@@ -1,45 +1,16 @@
 "use client"
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button } from './ui/button'
 import { Card } from './ui/card'
-import { Badge } from 'lucide-react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from './ui/table'
+import { IssueContext } from '@/context/Issue/IssueContext'
 
 type FilterType = "All" | "Bug" | "Feature" | "UI"
-
-const issues = [
-    {
-        id: 1,
-        title: "Bug in user authentication",
-        repo: "Project Alpha",
-        tag: "Bug",
-        tagColor: "bg-red-500/20 text-red-400",
-        author: "Liam Carter",
-        authorAvatar: "https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-        id: 2,
-        title: "Feature request: Dark mode",
-        repo: "Project Beta",
-        tag: "Feature",
-        tagColor: "bg-green-500/20 text-green-400",
-        author: "Sophia Bennett",
-        authorAvatar: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-    {
-        id: 3,
-        title: "Performance optimization",
-        repo: "Project Gamma",
-        tag: "Perf",
-        tagColor: "bg-yellow-500/20 text-yellow-400",
-        author: "Ethan Harper",
-        authorAvatar: "https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=100",
-    },
-]
 
 const LatestIssues = () => {
 
     const [filter, setFilter] = useState<FilterType>("All")
+    const { issues } = useContext(IssueContext);
 
     return (
         <section>
@@ -70,8 +41,8 @@ const LatestIssues = () => {
                     <TableHeader>
                         <TableRow className="border-slate-800 hover:bg-transparent">
                             <TableHead className="text-slate-400">Title</TableHead>
-                            <TableHead className="text-slate-400">Repo</TableHead>
-                            <TableHead className="text-slate-400">Tags</TableHead>
+                            {/* <TableHead className="text-slate-400">Repo</TableHead>
+                            <TableHead className="text-slate-400">Tags</TableHead> */}
                             <TableHead className="text-slate-400">Author</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -79,13 +50,13 @@ const LatestIssues = () => {
                         {issues.map((issue) => (
                             <TableRow key={issue.id} className="border-slate-800 hover:bg-slate-800/50">
                                 <TableCell className="font-medium text-white">{issue.title}</TableCell>
-                                <TableCell className="text-slate-400">{issue.repo}</TableCell>
-                                <TableCell>
+                                {/* <TableCell className="text-slate-400">{issue}</TableCell> */}
+                                {/* <TableCell>
                                     <Badge className={`${issue.tagColor} border-0`}>
                                         {issue.tag}
                                     </Badge>
-                                </TableCell>
-                                <TableCell className="text-slate-400">{issue.author}</TableCell>
+                                </TableCell> */}
+                                <TableCell className="text-slate-400">{issue.createdBy}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

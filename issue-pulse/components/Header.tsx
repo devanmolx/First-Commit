@@ -1,7 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
-import { ExternalLink, Target } from 'lucide-react'
+import { Target } from 'lucide-react'
 import React from 'react'
-import { Button } from './ui/button'
+import HeaderComponent from './HeaderComponent'
 
 const Header = () => {
     return (
@@ -13,18 +12,7 @@ const Header = () => {
                     </div>
                     <span className="text-xl font-semibold">RepoTrack</span>
                 </div>
-
-                <div className="flex items-center gap-4">
-                    <span className="text-sm text-slate-400">johndoe</span>
-                    <Avatar className="w-9 h-9">
-                        <AvatarImage src="https://images.pexels.com/photos/1680172/pexels-photo-1680172.jpeg?auto=compress&cs=tinysrgb&w=100" />
-                        <AvatarFallback>JD</AvatarFallback>
-                    </Avatar>
-                    <Button variant="ghost" size="sm" className="text-slate-400 hover:text-white">
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Sign Out
-                    </Button>
-                </div>
+                <HeaderComponent />
             </div>
         </header>
     )

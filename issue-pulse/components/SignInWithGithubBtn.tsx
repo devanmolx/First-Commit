@@ -11,7 +11,7 @@ const SignInWithGithubBtn = () => {
 
     function handleSignIn() {
         if (session.status == "unauthenticated") {
-            signIn("github");
+            signIn("github")
         }
         else if (session.status == "authenticated") {
             router.push("/dashboard")

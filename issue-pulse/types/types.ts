@@ -25,3 +25,32 @@ export interface GitHubIssue {
     created_at: string;
     labels: GitHubLabel[];
 }
+
+export interface UserType {
+    id: number
+    name: string
+    email: string
+    image: string
+}
+
+export interface UserContextType {
+    user: UserType | undefined,
+    setUser: (user: UserType | undefined) => void
+}
+
+export interface ProjectType {
+    id: number,
+    url: string,
+    description: string | undefined,
+    issues: IssueType[]
+}
+
+export interface ProjectContextType {
+    projects: ProjectType[],
+    setProjects: (projects: ProjectType[]) => void
+}
+
+export interface IssueContextType {
+    issues: IssueType[],
+    setIssues: (issues: IssueType[]) => void
+}
