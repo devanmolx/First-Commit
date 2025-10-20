@@ -1,8 +1,10 @@
 import { Target } from 'lucide-react'
 import React from 'react'
-import HeaderComponent from './HeaderComponent'
+import SignOutBtn from './SignOutBtn'
+import { UserType } from '@/types/types'
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 
-const Header = () => {
+const Header = ({ user }: { user: UserType }) => {
     return (
         <header className="border-b border-slate-800 bg-slate-900/50 backdrop-blur">
             <div className="container mx-auto px-6 py-4 flex items-center justify-between">
@@ -12,7 +14,17 @@ const Header = () => {
                     </div>
                     <span className="text-xl font-semibold">RepoTrack</span>
                 </div>
-                <HeaderComponent />
+                <div className="flex items-center gap-4">
+                    <span className="text-sm text-slate-400">{user.name}</span>
+                    {
+                        user.image &&
+                        <Avatar className="w-9 h-9 rounded-full overflow-hidden">
+                            <AvatarImage src={user.image} />
+                            <AvatarFallback>JD</AvatarFallback>
+                        </Avatar>
+                    }
+                    <SignOutBtn />
+                </div>
             </div>
         </header>
     )

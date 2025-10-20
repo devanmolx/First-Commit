@@ -28,9 +28,9 @@ export interface GitHubIssue {
 
 export interface UserType {
     id: number
-    name: string
-    email: string
-    image: string
+    name?: string | null
+    email?: string | null
+    image?: string | null
 }
 
 export interface UserContextType {

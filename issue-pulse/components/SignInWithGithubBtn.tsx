@@ -9,9 +9,9 @@ const SignInWithGithubBtn = () => {
     const session = useSession();
     const router = useRouter();
 
-    function handleSignIn() {
+    async function handleSignIn() {
         if (session.status == "unauthenticated") {
-            signIn("github")
+            await signIn("github", { callbackUrl: "/dashboard" })
         }
         else if (session.status == "authenticated") {
             router.push("/dashboard")
