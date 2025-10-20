@@ -1,13 +1,17 @@
 export interface IssueType {
     id: number;
-    issueNo: string;
+    issueNo: number;
     title: string;
-    description: string;
+    description?: string | null;
     createdBy: string;
     createdAt: Date;
+    updatedAt: Date;
     tags: string[];
+    url: string;
+    repoUrl: string;
     projectId: number;
 }
+
 
 interface GitHubLabel {
     name: string;
@@ -18,10 +22,11 @@ interface GitHubUser {
 }
 
 export interface GitHubIssue {
-    id: number;
+    number: number;
     title: string;
     body: string | null;
     user: GitHubUser | null;
+    html_url: string
     created_at: string;
     labels: GitHubLabel[];
 }

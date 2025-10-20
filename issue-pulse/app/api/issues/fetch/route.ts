@@ -18,9 +18,11 @@ export async function GET() {
             );
 
             const issues = res.data.map((i) => ({
-                issueNo: i.id.toString(),
+                issueNo: i.number,
                 title: i.title,
                 description: i.body || "",
+                repoUrl: project.url,
+                url: i.html_url,
                 createdBy: i.user?.login || "unknown",
                 createdAt: new Date(i.created_at),
                 tags: i.labels.map((l) => l.name),
@@ -31,7 +33,7 @@ export async function GET() {
             const newIssues = issues.filter((i) => !existingIds.includes(i.issueNo));
 
             if (newIssues.length > 0) {
-                await prisma.issues.createMany({
+                await prisma.issue.createMany({
                     data: newIssues,
                     skipDuplicates: true,
                 });

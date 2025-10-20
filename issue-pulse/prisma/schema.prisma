@@ -24,7 +24,7 @@ model Project {
   id          Int           @id @default(autoincrement())
   url         String        @unique
   description String?
-  issues      Issues[]
+  issues      Issue[]
   favoritedBy UserProject[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -41,13 +41,16 @@ model UserProject {
   @@unique([userId, projectId])
 }
 
-model Issues {
+model Issue {
   id          Int      @id @default(autoincrement())
-  issueNo     String
+  url         String
+  repoUrl     String
+  issueNo     Int
   title       String
-  description String
+  description String?
   createdBy   String
   createdAt   DateTime
+  updatedAt   DateTime @updatedAt
   tags        String[]
   Project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   Int

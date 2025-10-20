@@ -7,6 +7,13 @@ import { IssueContext } from '@/context/Issue/IssueContext'
 
 type FilterType = "All" | "Bug" | "Feature" | "UI"
 
+const tagColors: Record<string, string> = {
+    bug: "bg-red-100 text-red-800",
+    enhancement: "bg-green-100 text-green-800",
+    documentation: "bg-yellow-100 text-yellow-800",
+    default: "bg-gray-100 text-gray-800"
+};
+
 const LatestIssues = () => {
 
     const [filter, setFilter] = useState<FilterType>("All")
@@ -41,22 +48,29 @@ const LatestIssues = () => {
                     <TableHeader>
                         <TableRow className="border-slate-800 hover:bg-transparent">
                             <TableHead className="text-slate-400">Title</TableHead>
-                            {/* <TableHead className="text-slate-400">Repo</TableHead>
-                            <TableHead className="text-slate-400">Tags</TableHead> */}
+                            <TableHead className="text-slate-400">Repo</TableHead>
+                            <TableHead className="text-slate-400">Tags</TableHead>
                             <TableHead className="text-slate-400">Author</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {issues.map((issue) => (
                             <TableRow key={issue.id} className="border-slate-800 hover:bg-slate-800/50">
-                                <TableCell className="font-medium text-white">{issue.title}</TableCell>
-                                {/* <TableCell className="text-slate-400">{issue}</TableCell> */}
-                                {/* <TableCell>
-                                    <Badge className={`${issue.tagColor} border-0`}>
-                                        {issue.tag}
-                                    </Badge>
-                                </TableCell> */}
-                                <TableCell className="text-slate-400">{issue.createdBy}</TableCell>
+                                <TableCell className="font-medium text-white"><a href={issue.url} target='_blank'>{issue.title}</a></TableCell>
+                                <TableCell className="text-slate-400"> <a href={`https://github.com/${issue.repoUrl}`} target='_blank'>{issue.repoUrl}</a></TableCell>
+                                <TableCell>
+                                    <div className="flex flex-wrap gap-1 text-sm">
+                                        {issue.tags?.map((tag, idx) => (
+                                            <span
+                                                key={idx}
+                                                className={`text-xs px-2 py-1 rounded ${tagColors[tag] || tagColors.default}`}
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                </TableCell>
+                                <TableCell className="text-slate-400"><a href={`https://github.com/${issue.createdBy}`} target='_blank'>{issue.createdBy}</a></TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
