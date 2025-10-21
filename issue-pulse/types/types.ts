@@ -52,10 +52,11 @@ export interface ProjectType {
 
 export interface ProjectContextType {
     projects: ProjectType[],
-    setProjects: (projects: ProjectType[]) => void
+    setProjects: React.Dispatch<React.SetStateAction<ProjectType[]>>
 }
 
 export interface IssueContextType {
     issues: IssueType[],
-    setIssues: (issues: IssueType[]) => void
+    setIssues: (issues: IssueType[]) => void,
+    fetchIssues: () => void
 }

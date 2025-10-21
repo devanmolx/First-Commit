@@ -25,7 +25,7 @@ const IssueContextProvider = ({ children }: { children: React.ReactNode }) => {
     }, [user])
 
     return (
-        <IssueContext.Provider value={{ issues, setIssues }}>
+        <IssueContext.Provider value={{ issues, setIssues, fetchIssues }}>
             {children}
         </IssueContext.Provider>
     )

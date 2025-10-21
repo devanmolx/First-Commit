@@ -3,7 +3,8 @@ import { createContext } from "react";
 
 const defauleIssueContext: IssueContextType = {
     issues: [],
-    setIssues: () => { }
+    setIssues: () => { },
+    fetchIssues: () => { }
 }
 
 export const IssueContext = createContext<IssueContextType>(defauleIssueContext);

@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
 
     const body = await req.json();
 
-    const { projectUrl } = body;
+    let { projectUrl } = body;
+
+    projectUrl = projectUrl.split("github.com/")[1];
 
     const exists = await githubRepoExists(projectUrl);
 
@@ -29,7 +31,10 @@ export async function POST(req: NextRequest) {
 
     project = await prisma.project.findUnique({
         where: {
-            url: projectUrl
+            url: projectUrl,
+        },
+        include: {
+            issues: true
         }
     })
 
@@ -37,6 +42,9 @@ export async function POST(req: NextRequest) {
         project = await prisma.project.create({
             data: {
                 url: projectUrl
+            },
+            include: {
+                issues: true
             }
         })
     }
@@ -50,6 +58,7 @@ export async function POST(req: NextRequest) {
         }
     })
 
+
     if (!existingFavProject) {
         await prisma.userProject.create({
             data: {
@@ -58,6 +67,9 @@ export async function POST(req: NextRequest) {
             }
         })
     }
+    else {
+        return NextResponse.json({ project, msg: "Project already added to favorites", status: false });
+    }
 
-    return NextResponse.json({ msg: "Project added to favorites", status: true });
+    return NextResponse.json({ project, msg: "Project added to favorites", status: true });
 }
