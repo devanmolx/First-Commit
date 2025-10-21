@@ -12,7 +12,7 @@ const Header = ({ user }: { user: UserType }) => {
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <Target className="w-5 h-5" />
                     </div>
-                    <span className="text-xl font-semibold">RepoTrack</span>
+                    <span className="text-xl font-semibold">DevTrack</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <span className="text-sm text-slate-400">{user.name}</span>

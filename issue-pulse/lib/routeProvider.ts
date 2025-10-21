@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000"
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
 
 export const allFavProjectsRoute = `${BASE_URL}/api/project/favourite`
 export const latestIssuesRoute = `${BASE_URL}/api/issues`
