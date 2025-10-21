@@ -17,17 +17,19 @@ export async function GET() {
                 `https://api.github.com/repos/${project.url}/issues?sort=created&direction=desc&per_page=50`,
             );
 
-            const issues = res.data.map((i) => ({
-                issueNo: i.number,
-                title: i.title,
-                description: i.body || "",
-                repoUrl: project.url,
-                url: i.html_url,
-                createdBy: i.user?.login || "unknown",
-                createdAt: new Date(i.created_at),
-                tags: i.labels.map((l) => l.name),
-                projectId: project.id
-            }));
+            const issues = res.data
+                .filter((i) => !i.pull_request)
+                .map((i) => ({
+                    issueNo: i.number,
+                    title: i.title,
+                    description: i.body || "",
+                    repoUrl: project.url,
+                    url: i.html_url,
+                    createdBy: i.user?.login || "unknown",
+                    createdAt: new Date(i.created_at),
+                    tags: i.labels.map((l) => l.name),
+                    projectId: project.id
+                }));
 
             const existingIds = project.issues.map(i => i.issueNo);
             const newIssues = issues.filter((i) => !existingIds.includes(i.issueNo));

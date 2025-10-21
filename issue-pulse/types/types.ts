@@ -29,6 +29,7 @@ export interface GitHubIssue {
     html_url: string
     created_at: string;
     labels: GitHubLabel[];
+    pull_request?: { url: string };
 }
 
 export interface UserType {
