@@ -1,13 +1,22 @@
 "use client"
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Button } from './ui/button'
 import { AlertCircle, ExternalLink, Eye, Heart } from 'lucide-react'
 import { ProjectContext } from '@/context/Project/ProjectContext'
+import { ProjectType } from '@/types/types'
+import IssuesModal from './IssueModel'
 
 const Favouriteprojects = () => {
 
     const { projects } = useContext(ProjectContext);
+    const [open, setOpen] = useState<boolean>(false);
+    const [selectedProject, setSelectedProject] = useState<ProjectType | null>(null);
+
+    function handleOpenIssue(project: ProjectType) {
+        setSelectedProject(project);
+        setOpen(true);
+    }
 
     return (
         <section className="mb-12">
@@ -36,22 +45,23 @@ const Favouriteprojects = () => {
                             </div>
 
                             <div className="flex gap-2">
-                                <Button className="flex-1 bg-blue-600 hover:bg-blue-700 cursor-pointer">
+                                <Button onClick={() => { handleOpenIssue(project) }} className="flex-1 bg-blue-600 hover:bg-blue-700 cursor-pointer">
                                     <Eye className="w-4 h-4 mr-2" />
                                     View Issues
-                                </Button>
-                                <Button
-                                    variant="outline"
-                                    size="icon"
-                                    className="border-slate-700 hover:bg-slate-800"
-                                >
-                                    <Heart className="w-4 h-4 fill-current text-slate-400" />
                                 </Button>
                             </div>
                         </CardContent>
                     </Card>
                 ))}
             </div>
+            {selectedProject && (
+                <IssuesModal
+                    open={open}
+                    onClose={() => setOpen(false)}
+                    projectName={selectedProject.url}
+                    issues={selectedProject.issues}
+                />
+            )}
         </section>
     )
 }
