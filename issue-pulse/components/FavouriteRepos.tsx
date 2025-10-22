@@ -19,8 +19,10 @@ const Favouriteprojects = () => {
                         <CardHeader>
                             <div className="flex items-start justify-between">
                                 <CardTitle className="text-white text-lg">{project.url}</CardTitle>
-                                <Button variant="ghost" size="icon" className="h-8 w-8 -mt-2 -mr-2">
-                                    <ExternalLink className="w-4 h-4 text-slate-400" />
+                                <Button variant="ghost" size="icon" className="h-8 w-8 -mt-2 -mr-2 cursor-pointer">
+                                    <a href={`https://github.com/${project.url}`} target='_blank'>
+                                        <ExternalLink className="w-4 h-4 text-slate-400" />
+                                    </a>
                                 </Button>
                             </div>
                             <CardDescription className="text-slate-400 text-sm">
@@ -34,7 +36,7 @@ const Favouriteprojects = () => {
                             </div>
 
                             <div className="flex gap-2">
-                                <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
+                                <Button className="flex-1 bg-blue-600 hover:bg-blue-700 cursor-pointer">
                                     <Eye className="w-4 h-4 mr-2" />
                                     View Issues
                                 </Button>
