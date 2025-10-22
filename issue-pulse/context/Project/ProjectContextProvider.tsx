@@ -6,6 +6,8 @@ import { UserContext } from '../User/UserContext';
 import axios from 'axios';
 import { allFavProjectsRoute } from '@/lib/routeProvider';
 
+const CACHE_KEY = "fav_projects_cache"
+
 const ProjectContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [projects, setProjects] = useState<ProjectType[]>([]);
@@ -14,11 +16,25 @@ const ProjectContextProvider = ({ children }: { children: React.ReactNode }) => 
     async function fetchProjects() {
         const response = await axios.get(allFavProjectsRoute)
         if (response.data.status) {
-            setProjects(response.data.projects);
+            const newProjects = response.data.projects;
+            setProjects(newProjects);
+            localStorage.setItem(CACHE_KEY, JSON.stringify(newProjects));
         }
     }
 
     useEffect(() => {
+
+        const cached = localStorage.getItem(CACHE_KEY)
+
+        if (cached) {
+            try {
+                setProjects(JSON.parse(cached))
+                console.log(projects)
+            } catch {
+                localStorage.removeItem(CACHE_KEY)
+            }
+        }
+
         if (user) {
             fetchProjects()
         }

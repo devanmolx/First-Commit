@@ -6,6 +6,8 @@ import axios from 'axios'
 import { latestIssuesRoute } from '@/lib/routeProvider'
 import { UserContext } from '../User/UserContext'
 
+const CACHE_KEY = "latest_issues_cache"
+
 const IssueContextProvider = ({ children }: { children: React.ReactNode }) => {
 
     const [issues, setIssues] = useState<IssueType[]>([]);
@@ -14,11 +16,24 @@ const IssueContextProvider = ({ children }: { children: React.ReactNode }) => {
     async function fetchIssues() {
         const response = await axios.get(latestIssuesRoute);
         if (response.data.status) {
-            setIssues(response.data.issues);
+            const newIssues = response.data.issues
+            setIssues(newIssues);
+            localStorage.setItem(CACHE_KEY, JSON.stringify(newIssues));
         }
     }
 
     useEffect(() => {
+        const cached = localStorage.getItem(CACHE_KEY)
+
+        if (cached) {
+            try {
+                setIssues(JSON.parse(cached))
+            } catch {
+                localStorage.removeItem(CACHE_KEY)
+            }
+        }
+
+
         if (user) {
             fetchIssues()
         }
