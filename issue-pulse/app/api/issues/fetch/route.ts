@@ -3,16 +3,27 @@ import { GitHubIssue } from "@/types/types";
 import axios from "axios";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+async function batchPromises<T>(
+    items: T[],
+    batchSize: number,
+    callback: (item: T) => Promise<void>
+): Promise<void> {
+    for (let i = 0; i < items.length; i += batchSize) {
+        const batch = items.slice(i, i + batchSize);
+        await Promise.all(batch.map(callback));
+    }
+}
 
+export async function GET() {
     const projects = await prisma.project.findMany({
         include: {
             issues: true
         }
     });
 
-    await Promise.all(projects.map(async (project) => {
+    await batchPromises(projects, 5, async (project) => {
         try {
+
             const res = await axios.get<GitHubIssue[]>(
                 `https://api.github.com/repos/${project.url}/issues?sort=created&direction=desc&per_page=50`,
                 {
@@ -48,8 +59,7 @@ export async function GET() {
         } catch (error) {
             console.error(`Error fetching issues for project ${project.id}:`, error);
         }
-    }));
+    });
 
     return NextResponse.json({ msg: "Issues updated", status: true });
-
 }
