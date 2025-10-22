@@ -15,6 +15,11 @@ export async function GET() {
         try {
             const res = await axios.get<GitHubIssue[]>(
                 `https://api.github.com/repos/${project.url}/issues?sort=created&direction=desc&per_page=50`,
+                {
+                    headers: {
+                        Authorization: `token ${process.env.GITHUB_TOKEN}`
+                    }
+                }
             );
 
             const issues = res.data
