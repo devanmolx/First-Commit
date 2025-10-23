@@ -16,7 +16,7 @@ const IssuesModal: React.FC<IssuesModalProps> = ({ open, onClose, projectName, i
     return (
         <Dialog open={open} onOpenChange={onClose}>
             <DialogContent className="!max-w-[95vw] !w-full !h-[90vh] bg-slate-900 border-slate-800 overflow-y-auto">
-                <DialogHeader className="flex flex-row items-center justify-between ">
+                <DialogHeader className="flex flex-row items-center justify-between">
                     <DialogTitle className="text-white">Issues for {projectName}</DialogTitle>
                     <DialogClose asChild>
                         <button className="text-white cursor-pointer">
