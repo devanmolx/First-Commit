@@ -2,14 +2,13 @@
 import React, { useContext, useState } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
-import { Plus, Github, Loader2, Check, AlertCircle } from 'lucide-react';
+import { Plus, Github, Loader2, Check } from 'lucide-react';
 import axios from 'axios';
 import { addFavRepoRoute } from '@/lib/routeProvider';
 import { IssueContext } from '@/context/Issue/IssueContext';
 import { ProjectContext } from '@/context/Project/ProjectContext';
 import { ProjectType } from '@/types/types';
 // import { useToast } from '@/components/ui/use-toast';
-import { motion, AnimatePresence } from 'framer-motion';
 
 const AddFavRepo = () => {
     const [projectUrl, setProjectUrl] = useState("");
@@ -74,11 +73,8 @@ const AddFavRepo = () => {
     }
 
     return (
-        <motion.section
+        <section
             className="mb-12 p-6 bg-gradient-to-br from-slate-900/50 to-slate-900/30 rounded-xl border border-slate-800/50 shadow-lg"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
         >
             <div className="flex items-center gap-3 mb-6">
                 <div className="p-2 bg-blue-500/10 rounded-lg">
@@ -126,28 +122,13 @@ const AddFavRepo = () => {
                             )}
                         </Button>
                     </div>
-
-                    <AnimatePresence>
-                        {error && (
-                            <motion.p
-                                className="mt-2 text-sm text-red-400 flex items-center gap-2"
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.2 }}
-                            >
-                                <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                                {error}
-                            </motion.p>
-                        )}
-                    </AnimatePresence>
                 </div>
 
                 <p className="text-sm text-slate-400 mt-2">
                     Enter the full URL of a GitHub repository to start tracking its issues.
                 </p>
             </form>
-        </motion.section>
+        </section>
     )
 }
 
