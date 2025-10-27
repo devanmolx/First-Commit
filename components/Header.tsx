@@ -3,9 +3,15 @@ import React from 'react'
 import Image from 'next/image'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/authOptions'
+import { redirect } from 'next/navigation'
 
 const Header = async () => {
     const session = await getServerSession(authOptions);
+
+    if (!session) {
+        return redirect('/')
+    }
+
     return (
         <header className='bg-slate-900/50 backdrop-blur border-b border-slate-800'>
             <div className='flex items-center justify-between p-4'>

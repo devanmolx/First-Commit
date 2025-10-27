@@ -1,5 +1,4 @@
 import LatestIssues from '@/components/LatestIssues';
-import { redirect } from 'next/navigation'
 import { getServerSession } from 'next-auth/next'
 import { GitBranch, GitPullRequest, Github, Settings, Star, Users } from 'lucide-react'
 import { authOptions } from '@/lib/authOptions';
@@ -7,10 +6,6 @@ import { authOptions } from '@/lib/authOptions';
 const page = async () => {
 
     const session = await getServerSession(authOptions);
-
-    if (!session) {
-        return redirect('/')
-    }
 
     const stats = [
         { name: 'Tracked Repos', value: '12', icon: <Github className="w-6 h-6 text-blue-500" />, change: '+2 from last week' },
@@ -31,7 +26,7 @@ const page = async () => {
             {/* <Header /> */}
             <main className='flex-1 overflow-y-auto p-6'>
                 <div className='bg-gradient-to-r from-blue-900/50 to-cyan-900/50 border border-slate-800 rounded-2xl p-6 mb-8'>
-                    <h2 className='text-2xl font-bold mb-2'>Welcome back, {session.user.name}</h2>
+                    <h2 className='text-2xl font-bold mb-2'>Welcome back, {session?.user.name}</h2>
                     <p className='text-slate-300 max-w-2xl'>
                         Here&apos;s what&apos;s happening with your repositories today. You have 3 new pull requests and 8 issues need your attention.
                     </p>
