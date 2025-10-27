@@ -32,6 +32,49 @@ export interface GitHubIssue {
     pull_request?: { url: string };
 }
 
+export type GitHubEvent = {
+    id: string;
+    type:
+    | "PushEvent"
+    | "PullRequestEvent"
+    | "IssuesEvent"
+    | "ReleaseEvent"
+    | "CreateEvent"
+    | "DeleteEvent"
+    | "ForkEvent"
+    | "WatchEvent"
+    | string;
+    actor: {
+        login: string;
+    };
+    repo: {
+        name: string;
+    };
+    payload: {
+        ref?: string;
+        head?: string;
+        ref_type?: string;
+        action?: string;
+        issue?: {
+            number: number;
+            title: string;
+        };
+        pull_request?: {
+            number: number;
+            title: string;
+            head?: {
+                ref?: string;
+            };
+        };
+
+        release?: {
+            name?: string;
+            tag_name?: string;
+        };
+    };
+    created_at: string;
+};
+
 export interface UserType {
     id: number
     name?: string | null
