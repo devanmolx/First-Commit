@@ -5,6 +5,7 @@ import AuthProvider from "@/components/AuthProvider";
 import UserContextProvider from "@/context/User/UserContextProvider";
 import ProjectContextProvider from "@/context/Project/ProjectContextProvider";
 import IssueContextProvider from "@/context/Issue/IssueContextProvider";
+import ActivityContextProvider from "@/context/Activity/ActivityContextProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
           <UserContextProvider>
             <ProjectContextProvider>
               <IssueContextProvider>
-                <div className=" flex min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
-                  {children}
-                </div>
+                <ActivityContextProvider>
+                  <div className=" flex min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+                    {children}
+                  </div>
+                </ActivityContextProvider>
               </IssueContextProvider>
             </ProjectContextProvider>
           </UserContextProvider>

@@ -36,7 +36,6 @@ const IssueContextProvider = ({ children }: { children: React.ReactNode }) => {
             }
         }
 
-
         fetchIssues()
     }, [])
 

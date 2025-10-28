@@ -12,7 +12,6 @@ export interface IssueType {
     projectId: number;
 }
 
-
 interface GitHubLabel {
     name: string;
 }
@@ -94,6 +93,29 @@ export interface ProjectType {
     issues: IssueType[]
 }
 
+interface ActivityMetadata {
+  author: string;
+  branch?: string;
+  commit?: string;
+  state?: string;
+  title?: string;
+  issueNumber?: number;
+  note?: string;
+}
+
+export interface Activity {
+  id: number;
+  eventId: string;
+  userId: number;
+  repoName: string;
+  repoUrl: string;
+  type: string;
+  action: string;
+  details: string;
+  metadata: ActivityMetadata;
+  createdAt: string; 
+}
+
 export interface ProjectContextType {
     projects: ProjectType[],
     setProjects: React.Dispatch<React.SetStateAction<ProjectType[]>>
@@ -103,4 +125,9 @@ export interface IssueContextType {
     issues: IssueType[],
     setIssues: (issues: IssueType[]) => void,
     fetchIssues: () => void
+}
+
+export interface ActivityContextType {
+    activities: Activity[],
+    setActivities: React.Dispatch<React.SetStateAction<Activity[]>>
 }
