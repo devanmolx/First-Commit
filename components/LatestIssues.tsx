@@ -9,7 +9,7 @@ const LatestIssues = () => {
 
     return (
         <section>
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 mt-5">
                 <h2 className="text-2xl font-semibold">Recent Issues</h2>
             </div>
 
