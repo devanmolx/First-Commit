@@ -1,21 +1,12 @@
 "use client"
 import React from 'react'
 import { Button } from './ui/button'
-import { signIn, useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 
 const SignInWithGithubBtn = () => {
 
-    const session = useSession();
-    const router = useRouter();
-
     async function handleSignIn() {
-        if (session.status == "unauthenticated") {
-            await signIn("github", { callbackUrl: "/dashboard" })
-        }
-        else if (session.status == "authenticated") {
-            router.push("/dashboard")
-        }
+        await signIn("github", { callbackUrl: "/dashboard" })
     }
 
     return (

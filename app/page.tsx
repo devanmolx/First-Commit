@@ -1,8 +1,18 @@
 import { BarChart3, Heart, MessageCircle, Github, Twitter, Linkedin } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import SignInWithGithubBtn from "@/components/SignInWithGithubBtn";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
+
+  const session = await getServerSession(authOptions);
+
+  if(session){
+    return redirect("/dashboard")
+  }
+
   return (
     <div className=" w-screen">
       <div className="container mx-auto px-6 py-20 flex flex-col items-center text-center">
